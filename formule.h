@@ -5,12 +5,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
+#include <stdbool.h>
 
-# define formule struct FORMULE // pas beau mais ça marche
-
-formule {
-	operateur * operateur;
-	formule ** arguments;
+struct formule {
+	struct operateur * operateur;
+	struct formule ** arguments;
 	// Pour la suppression:
 	// puisque les formules ne forment pas un arbre (contrairement aux autres structures)
 	// on retient le nombre d'objets pointants vers une formule
@@ -18,11 +17,16 @@ formule {
 	// Attention : interdit la suppression « manuelle »
 	int pointages;
 	// Pour la copie parallèle d'une formule
-	formule * copie;
+	struct formule * copie;
 };
 
-formule * formule_a_partir(operateur * O, ...);
-formule * formule_creer(operateur * O, formule ** args);
-void formule_supprimer(formule * F);
+struct formule * formule_variable(char * ecrit, char * latex);
+struct formule * formule_creer(struct operateur * O, ...);
+void formule_supprimer(struct formule * F);
+
+struct formule * pointer(struct formule * F);
+
+bool formule_egale(struct formule * F, struct formule * G);
+void formule_afficher(struct formule * F);
 
 #endif
