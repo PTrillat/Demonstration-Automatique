@@ -1,10 +1,31 @@
 #include "operateur.h"
 #include "formule.h"
 #include "deduction.h"
+#include "regle.h"
 #include <stdio.h>
 #include <stdlib.h>
 
 int main() {
+	struct operateur * egale = operateur_creer(2, "=", "=");
+	struct operateur * plus = operateur_creer(2, "+", "+");
+	
+	struct formule * x = formule_variable("x", "x");
+	struct formule * y = formule_variable("y", "y");
+	struct formule * xpyeypx = formule_creer(egale, formule_creer(plus, x, y), formule_creer(plus, y, x));
+	formule_afficher(xpyeypx); printf("\n");
+	
+	struct formule * a = formule_variable("a", "a");
+	struct formule * b = formule_variable("b", "b");
+	struct formule * truc = fonction_regle(xpyeypx, 2, x, a, y, b);
+	formule_afficher(truc); printf("\n");
+	
+	formule_supprimer_bavarde(truc, 0);
+	formule_supprimer_bavarde(xpyeypx, 0);
+	
+	return 0;
+}
+
+/*int main() {
 	struct operateur * et = operateur_creer(2, "&", "\\land");
 	struct operateur * non = operateur_creer(1, "~", "\\neg");
 	
@@ -18,8 +39,8 @@ int main() {
 	
 	printf("%d\n", formule_egale(nxey1, xey2));
 	
-	formule_supprimer(nxey1);
-	formule_supprimer(xey2);
+	formule_supprimer_bavarde(nxey1);
+	formule_supprimer_bavarde(xey2);
 	
 	struct deduction * d = deduction_creer(2,
 				formule_creer(et, nx, ny),
@@ -29,11 +50,11 @@ int main() {
 	
 	deduction_ecrit_afficher(d, 0);
 	
-	deduction_supprimer(d);
-	formule_supprimer(nx);
-	formule_supprimer(ny);
-	formule_supprimer(y);
-	formule_supprimer(x);
-	operateur_supprimer(et);		
+	deduction_supprimer_bavarde(d);
+	formule_supprimer_bavarde(nx);
+	formule_supprimer_bavarde(ny);
+	formule_supprimer_bavarde(y);
+	formule_supprimer_bavarde(x);
+	operateur_supprimer_bavarde(et);
 	return 0;
-}
+}*/

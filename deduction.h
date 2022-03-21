@@ -17,6 +17,7 @@ struct deduction {
 
 struct deduction * deduction_creer(int n, struct formule * conc, ...);
 void deduction_supprimer(struct deduction * D);
+void deduction_supprimer_bavarde(struct deduction * D, int t);
 
 void deduction_afficher(struct deduction * D, int t);
 
